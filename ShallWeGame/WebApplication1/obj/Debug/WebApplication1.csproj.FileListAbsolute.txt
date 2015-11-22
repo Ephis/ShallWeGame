@@ -65,3 +65,5 @@ C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\System.We
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\System.Web.WebPages.xml
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\System.Web.WebPages.Deployment.xml
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\System.Web.WebPages.Razor.xml
+C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.IdentityUserAdded.resources
+C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.csproj.GenerateResource.Cache
