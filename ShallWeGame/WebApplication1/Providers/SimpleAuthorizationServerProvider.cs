@@ -38,11 +38,11 @@ namespace WebApplication1.Providers
                 {
                     try
                     {
-//                        Account account = new Account();
-//                        account.userId = user.Id;
-//                        account.accountState = Account.AccountState.Open;
+                        Account account = new Account();
+                        account.userId = user.Id;
+                        account.name = user.UserName;
                         GameContext ctx = new GameContext();
-//                        ctx.accounts.Add(account);
+                        ctx.Accounts.Add(account);
                         ctx.SaveChanges();
                         user.firstLogin = false;
                         await _repo.UpdateUser(user);

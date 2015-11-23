@@ -70,8 +70,14 @@ namespace WebApplication1.Controllers
                 var user = User.Identity.GetUserName();
                 var real = await _userManager.FindByNameAsync(user);
                 var realUser = await _userManager.FindByIdAsync(real.Id);
-//                var account = _ctx.accounts.Where(b => b.userId == realUser.Id);
-                return Ok(realUser);
+                var account = _ctx.Accounts.Where(b => b.userId == realUser.Id);
+                return Ok(account);
+            }
+
+            [AllowAnonymous]
+            public IHttpActionResult GetAccountFromId(int id)
+            {
+                return Ok(_ctx.Accounts.FirstOrDefault(a => a.id == id));
             }
 
             protected override void Dispose(bool disposing)
@@ -110,6 +116,7 @@ namespace WebApplication1.Controllers
                 return null;
 
             }
+
         }
     }
 }

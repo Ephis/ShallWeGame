@@ -17,6 +17,7 @@ namespace WebApplication1.Models
         public Account reciver { get; set; }
         public RequestStatus inviteStatus { get; set; }
         public DateTime madeAt { get; set; }
+        public int priority { get; set; }
 
         public Invite()
         {

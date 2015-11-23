@@ -9,7 +9,7 @@ namespace WebApplication1.Models
     {
         public int id { get; set; }
         public String name { get; set; }
-        public List<Account> frindList { get; set; }
+        public List<Account> freindsList { get; set; }
         public String userId { get; set; }
 
         public Account()

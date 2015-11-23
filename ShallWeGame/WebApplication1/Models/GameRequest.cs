@@ -14,7 +14,7 @@ namespace WebApplication1.Models
         public DateTime requestCreatedAt { get; set; }
         public DateTime timeItBegins { get; set; }
         public DateTime timeItEnds { get; set; }
-        public int playersNeed { get; set; }
+        public int playersNeeded { get; set; }
 
         public GameRequest()
         {
