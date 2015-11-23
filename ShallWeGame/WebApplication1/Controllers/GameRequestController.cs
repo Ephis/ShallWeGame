@@ -61,22 +61,49 @@ namespace WebApplication1.Controllers
         [Route("mygamerequests")]
         public async Task<IHttpActionResult> GetGameRequests()
         {
-            IQueryable<Invite> request =
-                from i in _ctx.Invites
-                where i.reciver.id == GetAccount().id
-                select i;
 
-            List<Invite> invites = request.ToList();
-
-            IQueryable<GameRequest> query =
-                from gr in _ctx.GameRequests
-                where gr.invites.Any(r => invites.Any(i => i.id == r.id))
-                select gr;
-
+            IQueryable<GameRequest> query = getUsersGameRequests();
 
             return Ok(query.ToList());
         }
 
+        [Authorize]
+        [Route("accept")]
+        public async Task<IHttpActionResult> AcceptGameRequest(IdViewModel inviteRequestId)
+        {
+            Account acc = GetAccount();
+            
+            GameRequest gameRequest = _ctx.GameRequests.FirstOrDefault(gr => gr.invites.Any(i => i.id ==inviteRequestId.id && i.reciver == acc));
+            if (gameRequest == null)
+            {
+                BadRequest("Your where not invited for that game");
+            }
+            Invite invite = gameRequest.invites.Find(i => i.reciver == acc);
+            invite.inviteStatus = RequestStatus.Accepted;
+            _ctx.Invites.AddOrUpdate(invite);
+            await _ctx.SaveChangesAsync();
+
+            return Ok(invite);
+        }
+
+        [Authorize]
+        [Route("reject")]
+        public async Task<IHttpActionResult> RejectGameRequest(IdViewModel inviteRequestId)
+        {
+            Account acc = GetAccount();
+
+            GameRequest gameRequest = _ctx.GameRequests.FirstOrDefault(gr => gr.invites.Any(i => i.id == inviteRequestId.id && i.reciver == acc));
+            if (gameRequest == null)
+            {
+                BadRequest("Your where not invited for that game");
+            }
+            Invite invite = gameRequest.invites.Find(i => i.reciver == acc);
+            invite.inviteStatus = RequestStatus.Rejected;
+            _ctx.Invites.AddOrUpdate(invite);
+            await _ctx.SaveChangesAsync();
+
+            return Ok(invite);
+        }
 
         [Authorize]
         [Route("games")]
@@ -117,9 +144,28 @@ namespace WebApplication1.Controllers
         private DateTime GetDateTimeFromString(String dateTimeAsString)
         {
             DateTime dateTime = new DateTime();
-
+            dateTime = DateTime.ParseExact(dateTimeAsString, "yyyy-MM-dd HH:mm:ss,fff",
+                                            System.Globalization.CultureInfo.InvariantCulture);
             return dateTime;
         }
+
+        private IQueryable<GameRequest> getUsersGameRequests()
+        {
+            IQueryable<Invite> request =
+                from i in _ctx.Invites
+                where i.reciver.id == GetAccount().id
+                select i;
+
+            List<Invite> invites = request.ToList();
+
+            IQueryable<GameRequest> query =
+                from gr in _ctx.GameRequests
+                where gr.invites.Any(r => invites.Any(i => i.id == r.id))
+                select gr;
+
+
+            return query;
+        } 
 
 
 

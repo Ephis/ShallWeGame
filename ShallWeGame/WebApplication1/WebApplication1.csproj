@@ -186,6 +186,10 @@
     <Compile Include="Migrations\201511230156492_SmallChanges.Designer.cs">
       <DependentUpon>201511230156492_SmallChanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511231516263_ControllerFirstTry.cs" />
+    <Compile Include="Migrations\201511231516263_ControllerFirstTry.Designer.cs">
+      <DependentUpon>201511231516263_ControllerFirstTry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -219,6 +223,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511230156492_SmallChanges.resx">
       <DependentUpon>201511230156492_SmallChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511231516263_ControllerFirstTry.resx">
+      <DependentUpon>201511231516263_ControllerFirstTry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
