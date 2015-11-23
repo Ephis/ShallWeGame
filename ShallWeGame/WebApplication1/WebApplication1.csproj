@@ -176,13 +176,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201511222222031_IdentityUserAdded.cs" />
-    <Compile Include="Migrations\201511222222031_IdentityUserAdded.Designer.cs">
-      <DependentUpon>201511222222031_IdentityUserAdded.cs</DependentUpon>
+    <Compile Include="Migrations\201511230053185_Initial.cs" />
+    <Compile Include="Migrations\201511230053185_Initial.Designer.cs">
+      <DependentUpon>201511230053185_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Account.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Models\GameContext.cs" />
+    <Compile Include="Contexts\GameContext.cs" />
+    <Compile Include="Models\FreindRequest.cs" />
+    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\GameRequest.cs" />
+    <Compile Include="Models\Invite.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
@@ -200,8 +205,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511222222031_IdentityUserAdded.resx">
-      <DependentUpon>201511222222031_IdentityUserAdded.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511230053185_Initial.resx">
+      <DependentUpon>201511230053185_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

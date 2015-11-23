@@ -9,6 +9,7 @@ using System.Web.Http.Description;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WebApplication1.App_Start;
+using WebApplication1.Contexts;
 using WebApplication1.Models;
 using WebApplication1.Models.ViewModels;
 

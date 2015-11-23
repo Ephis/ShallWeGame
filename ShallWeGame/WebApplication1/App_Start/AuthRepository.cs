@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using WebApplication1.Contexts;
 using WebApplication1.Models;
 using WebApplication1.Models.ViewModels;
 
