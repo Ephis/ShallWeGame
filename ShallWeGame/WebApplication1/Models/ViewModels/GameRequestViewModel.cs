@@ -11,6 +11,8 @@ namespace WebApplication1.Models.ViewModels
         [Required]
         public String invites { get; set; }
         [Required]
+        public String titel { get; set; }
+        [Required]
         public int gameId { get; set; }
         public String timeItBegins { get; set; }
         public String timeItEnds { get; set; }

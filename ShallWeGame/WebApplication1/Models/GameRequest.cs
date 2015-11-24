@@ -8,6 +8,7 @@ namespace WebApplication1.Models
     public class GameRequest
     {
         public int id { get; set; }
+        public String titel { get; set; }
         public Account owner { get; set; }
         public List<Invite> invites{get; set;} 
         public Game gameToPlay { get; set; }

@@ -40,6 +40,7 @@ namespace WebApplication1.Controllers
 
             GameRequest gameRequest = new GameRequest();
             gameRequest.invites = GetInviteListFromString(model.invites);
+            gameRequest.titel = model.titel;
             gameRequest.gameToPlay = _ctx.Games.FirstOrDefault(g => g.id == model.gameId);
             gameRequest.owner = GetAccount();
             gameRequest.timeItBegins = GetDateTimeFromString(model.timeItBegins);

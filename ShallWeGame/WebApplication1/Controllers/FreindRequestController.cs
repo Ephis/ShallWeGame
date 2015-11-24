@@ -23,13 +23,51 @@ namespace WebApplication1.Controllers
 
         public FreindRequestController()
         {
-            _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_ctx));
             _ctx = new GameContext();
+            _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_ctx));
         }
 
+        [Authorize]
+        [Route("getfreinds")]
+        public async Task<IHttpActionResult> GetAllFreinds()
+        {
+            Account acc = GetAccount();
+            IQueryable<Freinds> freindList = 
+                from f in _ctx.Freinds
+                where f.reciver.id == acc.id || f.sender.id == acc.id
+                select f;
+            IQueryable<Freinds> freindsWhereIamSender =
+                from fr in freindList
+                where fr.reciver.id != acc.id
+                select fr;
 
+            List<Freinds> freindsWhereIamSenderList = freindsWhereIamSender.ToList();
+
+            List<Account> fList = new List<Account>();
+
+            foreach (Freinds freind in freindsWhereIamSenderList)
+            {
+                fList.Add(freind.reciver);
+            }
+
+            IQueryable<Freinds> freindsWhereIamReciver =
+                from fr in freindList
+                where fr.reciver.id != acc.id
+                select fr;
+
+            List<Freinds> freindsWhereIamReciverList = freindsWhereIamReciver.ToList();
+            foreach (Freinds freind in freindsWhereIamReciverList)
+            {
+                fList.Add(freind.sender);
+            }
+
+
+            return Ok(fList);
+        }
+
+        [Authorize]
         [Route("request")]
-        public IHttpActionResult CreateRequest(FreindRequestViewModel model)
+        public IHttpActionResult CreateRequest(IdViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -37,8 +75,11 @@ namespace WebApplication1.Controllers
             }
             FreindRequest request = new FreindRequest();
             request.sender = GetAccount();
-            request.reciver =(Account) _ctx.Accounts.FirstOrDefault(a => a.id == model.reciverId);
+            request.reciver =(Account) _ctx.Accounts.FirstOrDefault(a => a.id == model.id);
             request.requestStatus = RequestStatus.Standby;
+            _ctx.FreindRequests.AddOrUpdate(request);
+            _ctx.SaveChanges();
+
             return Ok(request);
         }
 
@@ -84,11 +125,8 @@ namespace WebApplication1.Controllers
             request.requestStatus = RequestStatus.Accepted;
             _ctx.FreindRequests.AddOrUpdate(request);
             Account user = GetAccount();
-            user.freindsList.Add(request.sender);
-            Account sender = request.sender;
-            sender.freindsList.Add(user);
-            _ctx.Accounts.AddOrUpdate(user);
-            _ctx.Accounts.AddOrUpdate(sender);
+            Freinds freinds = new Freinds(request.sender, user);
+            _ctx.Freinds.AddOrUpdate(freinds);
             _ctx.SaveChangesAsync();
 
             return Ok();
