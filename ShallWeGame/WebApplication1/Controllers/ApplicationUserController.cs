@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -74,10 +75,34 @@ namespace WebApplication1.Controllers
                 return Ok(account);
             }
 
-            [AllowAnonymous]
-            public IHttpActionResult GetAccountFromId(int id)
+            [Authorize]
+            [Route("search")]
+            public IHttpActionResult UserFromUserName(UserNameViewModel model)
             {
-                return Ok(_ctx.Accounts.FirstOrDefault(a => a.id == id));
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                IQueryable<Account> searchQuey =
+                    from a in _ctx.Accounts
+                    where a.name.Contains(model.userName)
+                    select a;
+
+                List<Account> accounts = new List<Account>();
+
+                foreach (Account account in searchQuey.ToList())
+                {
+                    accounts.Add(account);
+                }
+
+                return Ok(accounts);
+            }
+
+
+            [AllowAnonymous]
+            public IHttpActionResult AccountFromId(IdViewModel model)
+            {
+                return Ok(_ctx.Accounts.FirstOrDefault(a => a.id == model.id));
             }
 
             protected override void Dispose(bool disposing)

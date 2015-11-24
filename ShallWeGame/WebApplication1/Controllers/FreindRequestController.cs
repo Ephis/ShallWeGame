@@ -15,7 +15,7 @@ using WebApplication1.Models.ViewModels;
 namespace WebApplication1.Controllers
 {
 
-    [RoutePrefix("api/freinds")]
+    [RoutePrefix("api/friends")]
     public class FreindRequestController : ApiController
     {
         private GameContext _ctx;
@@ -28,7 +28,7 @@ namespace WebApplication1.Controllers
         }
 
         [Authorize]
-        [Route("getfreinds")]
+        [Route("getfriends")]
         public async Task<IHttpActionResult> GetAllFreinds()
         {
             Account acc = GetAccount();
@@ -73,7 +73,7 @@ namespace WebApplication1.Controllers
             {
                 return BadRequest(ModelState);
             }
-            FreindRequest request = new FreindRequest();
+            FriendRequest request = new FriendRequest();
             request.sender = GetAccount();
             request.reciver =(Account) _ctx.Accounts.FirstOrDefault(a => a.id == model.id);
             request.requestStatus = RequestStatus.Standby;
@@ -88,10 +88,9 @@ namespace WebApplication1.Controllers
         public IHttpActionResult MyRequests()
         {
             Account user = GetAccount();
-            IQueryable<FreindRequest> qurey =
+            IQueryable<FriendRequest> qurey =
                 from fr in _ctx.FreindRequests
-                where (fr.reciver.id == user.id ||
-                fr.sender.id == user.id && 
+                where (fr.reciver.id == user.id && 
                 fr.requestStatus != RequestStatus.Rejected || 
                 fr.requestStatus != RequestStatus.Accepted)
                 select fr;
@@ -107,27 +106,27 @@ namespace WebApplication1.Controllers
             {
                 return BadRequest(ModelState);
             }
-            IQueryable<FreindRequest> query =
+            Account user = GetAccount();
+
+            IQueryable<FriendRequest> query =
                 from fr in _ctx.FreindRequests
                 where fr.id == model.id &&
-                      fr.reciver.id == GetAccount().id
+                      fr.reciver.id == user.id
                 select fr;
 
-
-            List<FreindRequest> requests = query.ToList();
+            List<FriendRequest> requests = query.ToList();
 
             if (requests.Count == 0)
             {
                 return BadRequest("");
             }
 
-            FreindRequest request = requests.First();
+            FriendRequest request = requests.First();
             request.requestStatus = RequestStatus.Accepted;
             _ctx.FreindRequests.AddOrUpdate(request);
-            Account user = GetAccount();
             Freinds freinds = new Freinds(request.sender, user);
             _ctx.Freinds.AddOrUpdate(freinds);
-            _ctx.SaveChangesAsync();
+            _ctx.SaveChanges();
 
             return Ok();
         }
@@ -141,20 +140,21 @@ namespace WebApplication1.Controllers
             {
                 return BadRequest(ModelState);
             }
-            IQueryable<FreindRequest> query =
+            Account user = GetAccount();
+            IQueryable<FriendRequest> query =
                 from fr in _ctx.FreindRequests
                 where fr.id == model.id &&
-                      fr.reciver.id == GetAccount().id
+                      fr.reciver.id == user.id
                 select fr;
 
 
-            List<FreindRequest> requests = query.ToList();
+            List<FriendRequest> requests = query.ToList();
 
             if (requests.Count == 0)
             {
                 return BadRequest("");
             }
-            FreindRequest request = requests.First();
+            FriendRequest request = requests.First();
             request.requestStatus = RequestStatus.Rejected;
             _ctx.FreindRequests.AddOrUpdate(request);
             _ctx.SaveChangesAsync();

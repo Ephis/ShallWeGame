@@ -11,7 +11,7 @@ namespace WebApplication1.Contexts
     public class GameContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Account> Accounts { get; set; } 
-        public DbSet<FreindRequest> FreindRequests { get; set; }
+        public DbSet<FriendRequest> FreindRequests { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<GameRequest> GameRequests { get; set; }
         public DbSet<Invite> Invites { get; set; }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebApplication1.Models
 {
-    public class FreindRequest
+    public class FriendRequest
     {
         public int id { get; set; }
         public Account sender { get; set; }
@@ -13,7 +13,7 @@ namespace WebApplication1.Models
         public RequestStatus requestStatus { get; set; }
         public DateTime requestMadeAt { get; set; }
 
-        public FreindRequest()
+        public FriendRequest()
         {
             requestMadeAt = DateTime.Now;
         }

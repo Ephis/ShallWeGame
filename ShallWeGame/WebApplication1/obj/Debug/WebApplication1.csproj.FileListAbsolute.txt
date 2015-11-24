@@ -83,3 +83,4 @@ C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\Microsoft
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\System.Net.Http.xml
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\System.Net.Http.WebRequest.xml
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.freinds.resources
+C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.test.resources

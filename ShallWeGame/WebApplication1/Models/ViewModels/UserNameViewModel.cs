@@ -6,9 +6,8 @@ using System.Web;
 
 namespace WebApplication1.Models.ViewModels
 {
-    public class IdViewModel
+    public class UserNameViewModel
     {
-        [Required]
-        public int id { get; set; }
+        public String userName { get; set; }
     }
 }
