@@ -10,7 +10,7 @@ namespace WebApplication1.Models
         public int id { get; set; }
         public String titel { get; set; }
         public Account owner { get; set; }
-        public List<Invite> invites{get; set;} 
+        public virtual ICollection<Invite> invites{get; set;} 
         public Game gameToPlay { get; set; }
         public DateTime requestCreatedAt { get; set; }
         public DateTime timeItBegins { get; set; }

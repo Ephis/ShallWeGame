@@ -16,7 +16,7 @@ using WebApplication1.Models.ViewModels;
 
 namespace WebApplication1.Controllers
 {
-    [RoutePrefix("gamerequest")]
+    [RoutePrefix("api/gamerequest")]
     public class GameRequestController : ApiController
     {
 
@@ -25,8 +25,8 @@ namespace WebApplication1.Controllers
         
         public GameRequestController()
         {
-            _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_ctx));
             _ctx = new GameContext();
+            _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_ctx));
         }
 
         [Authorize]
@@ -79,7 +79,7 @@ namespace WebApplication1.Controllers
             {
                 BadRequest("Your where not invited for that game");
             }
-            Invite invite = gameRequest.invites.Find(i => i.reciver == acc);
+            Invite invite = gameRequest.invites.FirstOrDefault(i => i.reciver == acc);
             invite.inviteStatus = RequestStatus.Accepted;
             _ctx.Invites.AddOrUpdate(invite);
             await _ctx.SaveChangesAsync();
@@ -98,7 +98,7 @@ namespace WebApplication1.Controllers
             {
                 BadRequest("Your where not invited for that game");
             }
-            Invite invite = gameRequest.invites.Find(i => i.reciver == acc);
+            Invite invite = gameRequest.invites.FirstOrDefault(i => i.reciver == acc);
             invite.inviteStatus = RequestStatus.Rejected;
             _ctx.Invites.AddOrUpdate(invite);
             await _ctx.SaveChangesAsync();

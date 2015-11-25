@@ -36,12 +36,8 @@ namespace WebApplication1.Controllers
                 from f in _ctx.Freinds
                 where f.reciver.id == acc.id || f.sender.id == acc.id
                 select f;
-            IQueryable<Freinds> freindsWhereIamSender =
-                from fr in freindList
-                where fr.reciver.id != acc.id
-                select fr;
 
-            List<Freinds> freindsWhereIamSenderList = freindsWhereIamSender.ToList();
+            List<Freinds> freindsWhereIamSenderList = freindList.ToList();
 
             List<Account> fList = new List<Account>();
 
@@ -91,7 +87,7 @@ namespace WebApplication1.Controllers
             IQueryable<FriendRequest> qurey =
                 from fr in _ctx.FreindRequests
                 where (fr.reciver.id == user.id && 
-                fr.requestStatus != RequestStatus.Rejected || 
+                fr.requestStatus != RequestStatus.Rejected &&
                 fr.requestStatus != RequestStatus.Accepted)
                 select fr;
 

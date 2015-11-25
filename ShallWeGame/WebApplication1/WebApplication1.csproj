@@ -223,6 +223,14 @@
     <Compile Include="Migrations\201511241513185_test.Designer.cs">
       <DependentUpon>201511241513185_test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511250218250_InvitesInGameRequestChanged.cs" />
+    <Compile Include="Migrations\201511250218250_InvitesInGameRequestChanged.Designer.cs">
+      <DependentUpon>201511250218250_InvitesInGameRequestChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511250219265_InvitesInGameRequestChangede.cs" />
+    <Compile Include="Migrations\201511250219265_InvitesInGameRequestChangede.Designer.cs">
+      <DependentUpon>201511250219265_InvitesInGameRequestChangede.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -269,6 +277,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511241513185_test.resx">
       <DependentUpon>201511241513185_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511250218250_InvitesInGameRequestChanged.resx">
+      <DependentUpon>201511250218250_InvitesInGameRequestChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511250219265_InvitesInGameRequestChangede.resx">
+      <DependentUpon>201511250219265_InvitesInGameRequestChangede.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
