@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
@@ -12,7 +14,8 @@ namespace WebApplication1.Models
 
 
     public class Invite
-    {
+    {   
+        [Key]
         public int id { get; set; }
         public Account reciver { get; set; }
         public RequestStatus inviteStatus { get; set; }

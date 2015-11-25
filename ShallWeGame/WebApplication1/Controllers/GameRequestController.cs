@@ -39,20 +39,26 @@ namespace WebApplication1.Controllers
             }
 
             GameRequest gameRequest = new GameRequest();
-            gameRequest.invites = GetInviteListFromString(model.invites);
             gameRequest.titel = model.titel;
             gameRequest.gameToPlay = _ctx.Games.FirstOrDefault(g => g.id == model.gameId);
             gameRequest.owner = GetAccount();
-            gameRequest.timeItBegins = GetDateTimeFromString(model.timeItBegins);
-            gameRequest.timeItEnds = GetDateTimeFromString(model.timeItEnds);
             gameRequest.playersNeeded = model.playersNeeded;
 
-            foreach (Invite inv in GetInviteListFromString(model.invites))
-            {
-                _ctx.Invites.AddOrUpdate(inv);
-            }
             _ctx.GameRequests.AddOrUpdate(gameRequest);
-            int x = await _ctx.SaveChangesAsync();
+            if (model.invites != null)
+            {
+                List<Invite> invites = GetInviteListFromString(model.invites);
+                foreach (Invite inv in invites)
+                {
+                    _ctx.Invites.AddOrUpdate(inv);
+                    InviteRequest inviteRequest = new InviteRequest();
+                    inviteRequest.gameRequest = gameRequest;
+                    inviteRequest.invite = inv;
+                    _ctx.InviteRequests.AddOrUpdate(inviteRequest);
+                }
+            }
+
+            await _ctx.SaveChangesAsync();
             
 
             return Ok(gameRequest);
@@ -68,43 +74,43 @@ namespace WebApplication1.Controllers
             return Ok(query.ToList());
         }
 
-        [Authorize]
-        [Route("accept")]
-        public async Task<IHttpActionResult> AcceptGameRequest(IdViewModel inviteRequestId)
-        {
-            Account acc = GetAccount();
-            
-            GameRequest gameRequest = _ctx.GameRequests.FirstOrDefault(gr => gr.invites.Any(i => i.id ==inviteRequestId.id && i.reciver == acc));
-            if (gameRequest == null)
-            {
-                BadRequest("Your where not invited for that game");
-            }
-            Invite invite = gameRequest.invites.FirstOrDefault(i => i.reciver == acc);
-            invite.inviteStatus = RequestStatus.Accepted;
-            _ctx.Invites.AddOrUpdate(invite);
-            await _ctx.SaveChangesAsync();
-
-            return Ok(invite);
-        }
-
-        [Authorize]
-        [Route("reject")]
-        public async Task<IHttpActionResult> RejectGameRequest(IdViewModel inviteRequestId)
-        {
-            Account acc = GetAccount();
-
-            GameRequest gameRequest = _ctx.GameRequests.FirstOrDefault(gr => gr.invites.Any(i => i.id == inviteRequestId.id && i.reciver == acc));
-            if (gameRequest == null)
-            {
-                BadRequest("Your where not invited for that game");
-            }
-            Invite invite = gameRequest.invites.FirstOrDefault(i => i.reciver == acc);
-            invite.inviteStatus = RequestStatus.Rejected;
-            _ctx.Invites.AddOrUpdate(invite);
-            await _ctx.SaveChangesAsync();
-
-            return Ok(invite);
-        }
+//        [Authorize]
+//        [Route("accept")]
+//        public async Task<IHttpActionResult> AcceptGameRequest(IdViewModel inviteRequestId)
+//        {
+//            Account acc = GetAccount();
+//            
+//            GameRequest gameRequest = _ctx.GameRequests.FirstOrDefault(gr => gr.invites.Any(i => i.id ==inviteRequestId.id && i.reciver == acc));
+//            if (gameRequest == null)
+//            {
+//                BadRequest("Your where not invited for that game");
+//            }
+//            Invite invite = gameRequest.invites.FirstOrDefault(i => i.reciver == acc);
+//            invite.inviteStatus = RequestStatus.Accepted;
+//            _ctx.Invites.AddOrUpdate(invite);
+//            await _ctx.SaveChangesAsync();
+//
+//            return Ok(invite);
+//        }
+//
+//        [Authorize]
+//        [Route("reject")]
+//        public async Task<IHttpActionResult> RejectGameRequest(IdViewModel inviteRequestId)
+//        {
+//            Account acc = GetAccount();
+//
+//            GameRequest gameRequest = _ctx.GameRequests.FirstOrDefault(gr => gr.invites.Any(i => i.id == inviteRequestId.id && i.reciver == acc));
+//            if (gameRequest == null)
+//            {
+//                BadRequest("Your where not invited for that game");
+//            }
+//            Invite invite = gameRequest.invites.FirstOrDefault(i => i.reciver == acc);
+//            invite.inviteStatus = RequestStatus.Rejected;
+//            _ctx.Invites.AddOrUpdate(invite);
+//            await _ctx.SaveChangesAsync();
+//
+//            return Ok(invite);
+//        }
 
         [Authorize]
         [Route("games")]
@@ -130,11 +136,12 @@ namespace WebApplication1.Controllers
             List<Invite> inviteList = new List<Invite>();
             string[] stringList = inviteString.Split(';');
 
-            foreach (String s in stringList)
+            for (int i = 0; i < stringList.Length-1; i++)
             {
                 Invite invite = new Invite();
-                string[] st = s.Split(':');
-                invite.reciver = _ctx.Accounts.FirstOrDefault(a => a.id == int.Parse(st[0]));
+                string[] st = stringList[i].Split(':');
+                int reciverId = int.Parse(st[0]);
+                invite.reciver = _ctx.Accounts.FirstOrDefault(a => a.id == reciverId);
                 invite.priority = int.Parse(st[1]);
                 inviteList.Add(invite);
             }
@@ -142,26 +149,36 @@ namespace WebApplication1.Controllers
             return inviteList;
         }
 
-        private DateTime GetDateTimeFromString(String dateTimeAsString)
-        {
-            DateTime dateTime = new DateTime();
-            dateTime = DateTime.ParseExact(dateTimeAsString, "yyyy-MM-dd HH:mm:ss,fff",
-                                            System.Globalization.CultureInfo.InvariantCulture);
-            return dateTime;
-        }
+//        private DateTime GetDateTimeFromString(String dateTimeAsString)
+//        {
+//            DateTime dateTime = new DateTime();
+//            dateTime = DateTime.ParseExact(dateTimeAsString, "yyyy-MM-dd HH:mm:ss,fff",
+//                                            System.Globalization.CultureInfo.InvariantCulture);
+//            return dateTime;
+//        }
 
         private IQueryable<GameRequest> getUsersGameRequests()
         {
-            IQueryable<Invite> request =
+            Account acc = GetAccount();
+            IQueryable<Invite> requestQuery =
                 from i in _ctx.Invites
-                where i.reciver.id == GetAccount().id
+                where i.reciver.id == acc.id
                 select i;
 
-            List<Invite> invites = request.ToList();
+            List<Invite> invites = requestQuery.ToList();
+            var inviteIds = invites.Select(i => i.id).ToList();
+
+            IQueryable<InviteRequest> inviteQuery =
+                from ir in _ctx.InviteRequests
+                where inviteIds.Contains(ir.id)
+                select ir;
+
+            List<InviteRequest> inviteRequests = inviteQuery.ToList();
+            var inviteRequestIds = inviteRequests.Select(ir => ir.id).ToList();
 
             IQueryable<GameRequest> query =
                 from gr in _ctx.GameRequests
-                where gr.invites.Any(r => invites.Any(i => i.id == r.id))
+                where inviteRequestIds.Contains(gr.id)
                 select gr;
 
 

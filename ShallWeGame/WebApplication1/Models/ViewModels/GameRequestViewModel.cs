@@ -8,7 +8,6 @@ namespace WebApplication1.Models.ViewModels
 {
     public class GameRequestViewModel
     {
-        [Required]
         public String invites { get; set; }
         [Required]
         public String titel { get; set; }

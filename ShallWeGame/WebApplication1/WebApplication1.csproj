@@ -231,6 +231,22 @@
     <Compile Include="Migrations\201511250219265_InvitesInGameRequestChangede.Designer.cs">
       <DependentUpon>201511250219265_InvitesInGameRequestChangede.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511250318137_joinedTableAdded.cs" />
+    <Compile Include="Migrations\201511250318137_joinedTableAdded.Designer.cs">
+      <DependentUpon>201511250318137_joinedTableAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511250351073_foreignKeysAdded.cs" />
+    <Compile Include="Migrations\201511250351073_foreignKeysAdded.Designer.cs">
+      <DependentUpon>201511250351073_foreignKeysAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511250354390_test1.cs" />
+    <Compile Include="Migrations\201511250354390_test1.Designer.cs">
+      <DependentUpon>201511250354390_test1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511250359369_test2.cs" />
+    <Compile Include="Migrations\201511250359369_test2.Designer.cs">
+      <DependentUpon>201511250359369_test2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -240,6 +256,7 @@
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\GameRequest.cs" />
     <Compile Include="Models\Invite.cs" />
+    <Compile Include="Models\InviteRequest.cs" />
     <Compile Include="Models\ViewModels\GameRequestViewModel.cs" />
     <Compile Include="Models\ViewModels\IdViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
@@ -283,6 +300,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511250219265_InvitesInGameRequestChangede.resx">
       <DependentUpon>201511250219265_InvitesInGameRequestChangede.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511250318137_joinedTableAdded.resx">
+      <DependentUpon>201511250318137_joinedTableAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511250351073_foreignKeysAdded.resx">
+      <DependentUpon>201511250351073_foreignKeysAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511250354390_test1.resx">
+      <DependentUpon>201511250354390_test1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511250359369_test2.resx">
+      <DependentUpon>201511250359369_test2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

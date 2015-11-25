@@ -85,3 +85,8 @@ C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\Web
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.dll
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.pdb
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.InvitesInGameRequestChangede.resources
+C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.csprojResolveAssemblyReference.cache
+C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.joinedTableAdded.resources
+C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.foreignKeysAdded.resources
+C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.test1.resources
+C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.test2.resources

@@ -16,6 +16,7 @@ namespace WebApplication1.Contexts
         public DbSet<GameRequest> GameRequests { get; set; }
         public DbSet<Invite> Invites { get; set; }
         public DbSet<Freinds> Freinds { get; set; }
+        public DbSet<InviteRequest> InviteRequests { get; set; }
 
         public GameContext() : base("GameContext")
         {
