@@ -69,43 +69,43 @@ namespace WebApplication1.Controllers
             return Ok(getUsersGameRequests());
         }
 
-//        [Authorize]
-//        [Route("accept")]
-//        public async Task<IHttpActionResult> AcceptGameRequest(IdViewModel inviteRequestId)
-//        {
-//            Account acc = GetAccount();
-//            
-//            GameRequest gameRequest = _ctx.GameRequests.FirstOrDefault(gr => gr.invites.Any(i => i.id ==inviteRequestId.id && i.reciver == acc));
-//            if (gameRequest == null)
-//            {
-//                BadRequest("Your where not invited for that game");
-//            }
-//            Invite invite = gameRequest.invites.FirstOrDefault(i => i.reciver == acc);
-//            invite.inviteStatus = RequestStatus.Accepted;
-//            _ctx.Invites.AddOrUpdate(invite);
-//            await _ctx.SaveChangesAsync();
-//
-//            return Ok(invite);
-//        }
-//
-//        [Authorize]
-//        [Route("reject")]
-//        public async Task<IHttpActionResult> RejectGameRequest(IdViewModel inviteRequestId)
-//        {
-//            Account acc = GetAccount();
-//
-//            GameRequest gameRequest = _ctx.GameRequests.FirstOrDefault(gr => gr.invites.Any(i => i.id == inviteRequestId.id && i.reciver == acc));
-//            if (gameRequest == null)
-//            {
-//                BadRequest("Your where not invited for that game");
-//            }
-//            Invite invite = gameRequest.invites.FirstOrDefault(i => i.reciver == acc);
-//            invite.inviteStatus = RequestStatus.Rejected;
-//            _ctx.Invites.AddOrUpdate(invite);
-//            await _ctx.SaveChangesAsync();
-//
-//            return Ok(invite);
-//        }
+        [Authorize]
+        [Route("accept")]
+        public async Task<IHttpActionResult> AcceptGameRequest(IdViewModel inviteRequestId)
+        {
+            Account acc = GetAccount();
+            
+            Invite invite = _ctx.Invites.FirstOrDefault(i => i.id ==inviteRequestId.id && i.reciver == acc);
+            if (invite == null)
+            {
+                BadRequest("Your where not invited for that game");
+            }
+
+            invite.inviteStatus = RequestStatus.Accepted;
+            _ctx.Invites.AddOrUpdate(invite);
+            await _ctx.SaveChangesAsync();
+
+            return Ok(invite);
+        }
+
+        [Authorize]
+        [Route("reject")]
+        public async Task<IHttpActionResult> RejectGameRequest(IdViewModel inviteRequestId)
+        {
+            Account acc = GetAccount();
+
+            Invite invite = _ctx.Invites.FirstOrDefault(i => i.id == inviteRequestId.id && i.reciver == acc);
+            if (invite == null)
+            {
+                BadRequest("Your where not invited for that game");
+            }
+
+            invite.inviteStatus = RequestStatus.Rejected;
+            _ctx.Invites.AddOrUpdate(invite);
+            await _ctx.SaveChangesAsync();
+
+            return Ok(invite);
+        }
 
         [Authorize]
         [Route("games")]
@@ -169,6 +169,7 @@ namespace WebApplication1.Controllers
                 GameRequestReturnModel grm = new GameRequestReturnModel();
                 grm.usersInvite = invites[i];
                 grm.id = invites[i].gameRequest.id;
+                grm.gameToPlay = invites[i].gameRequest.gameToPlay;
                 grm.titel = invites[i].gameRequest.titel;
                 grm.owner = invites[i].gameRequest.owner;
                 returnList.Add(grm);
