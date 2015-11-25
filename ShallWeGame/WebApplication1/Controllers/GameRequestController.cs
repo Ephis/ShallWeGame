@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WebApplication1.Contexts;
 using WebApplication1.Models;
+using WebApplication1.Models.ReturnModels;
 using WebApplication1.Models.ViewModels;
 
 namespace WebApplication1.Controllers
@@ -50,11 +51,8 @@ namespace WebApplication1.Controllers
                 List<Invite> invites = GetInviteListFromString(model.invites);
                 foreach (Invite inv in invites)
                 {
+                    inv.gameRequest = gameRequest;
                     _ctx.Invites.AddOrUpdate(inv);
-                    InviteRequest inviteRequest = new InviteRequest();
-                    inviteRequest.gameRequest = gameRequest;
-                    inviteRequest.invite = inv;
-                    _ctx.InviteRequests.AddOrUpdate(inviteRequest);
                 }
             }
 
@@ -68,10 +66,7 @@ namespace WebApplication1.Controllers
         [Route("mygamerequests")]
         public async Task<IHttpActionResult> GetGameRequests()
         {
-
-            IQueryable<GameRequest> query = getUsersGameRequests();
-
-            return Ok(query.ToList());
+            return Ok(getUsersGameRequests());
         }
 
 //        [Authorize]
@@ -157,32 +152,44 @@ namespace WebApplication1.Controllers
 //            return dateTime;
 //        }
 
-        private IQueryable<GameRequest> getUsersGameRequests()
+        private List<GameRequestReturnModel> getUsersGameRequests()
         {
             Account acc = GetAccount();
+            List<GameRequestReturnModel> returnList = new List<GameRequestReturnModel>();
+
             IQueryable<Invite> requestQuery =
-                from i in _ctx.Invites
+                from i in _ctx.Invites.Include("GameRequest")
                 where i.reciver.id == acc.id
                 select i;
 
             List<Invite> invites = requestQuery.ToList();
-            var inviteIds = invites.Select(i => i.id).ToList();
 
-            IQueryable<InviteRequest> inviteQuery =
-                from ir in _ctx.InviteRequests
-                where inviteIds.Contains(ir.id)
-                select ir;
+            for (int i = 0; i < invites.Count; i++)
+            {
+                GameRequestReturnModel grm = new GameRequestReturnModel();
+                grm.usersInvite = invites[i];
+                grm.id = invites[i].id;
+                grm.titel = invites[i].gameRequest.titel;
+                grm.owner = invites[i].gameRequest.owner;
+                returnList.Add(grm);
+            }
 
-            List<InviteRequest> inviteRequests = inviteQuery.ToList();
-            var inviteRequestIds = inviteRequests.Select(ir => ir.id).ToList();
+            var gameRequestIds = returnList.Select(grm => grm.id).ToList();
 
-            IQueryable<GameRequest> query =
-                from gr in _ctx.GameRequests
-                where inviteRequestIds.Contains(gr.id)
-                select gr;
+            IQueryable<Invite> inviteQuery =
+                from i in _ctx.Invites
+                where gameRequestIds.Contains(i.gameRequest.id)
+                select i;
 
+            List<Invite> inviteList = inviteQuery.ToList();
 
-            return query;
+            foreach (GameRequestReturnModel grm in returnList)
+            {
+                List<Invite> invList = inviteList.Where(i => i.gameRequest.id == grm.id).ToList();
+                grm.invites = invList;
+            }
+
+            return returnList;
         } 
 
 

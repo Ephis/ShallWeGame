@@ -18,6 +18,7 @@ namespace WebApplication1.Models
         [Key]
         public int id { get; set; }
         public Account reciver { get; set; }
+        public GameRequest gameRequest { get; set; }
         public RequestStatus inviteStatus { get; set; }
         public DateTime madeAt { get; set; }
         public int priority { get; set; }

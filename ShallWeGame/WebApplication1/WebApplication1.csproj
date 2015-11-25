@@ -247,6 +247,14 @@
     <Compile Include="Migrations\201511250359369_test2.Designer.cs">
       <DependentUpon>201511250359369_test2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511252023057_GameRequestInInvite.cs" />
+    <Compile Include="Migrations\201511252023057_GameRequestInInvite.Designer.cs">
+      <DependentUpon>201511252023057_GameRequestInInvite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511252029562_JoinedTableRemoved.cs" />
+    <Compile Include="Migrations\201511252029562_JoinedTableRemoved.Designer.cs">
+      <DependentUpon>201511252029562_JoinedTableRemoved.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -256,7 +264,7 @@
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\GameRequest.cs" />
     <Compile Include="Models\Invite.cs" />
-    <Compile Include="Models\InviteRequest.cs" />
+    <Compile Include="Models\ReturnModels\GameRequestReturnModel.cs" />
     <Compile Include="Models\ViewModels\GameRequestViewModel.cs" />
     <Compile Include="Models\ViewModels\IdViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
@@ -312,6 +320,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511250359369_test2.resx">
       <DependentUpon>201511250359369_test2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511252023057_GameRequestInInvite.resx">
+      <DependentUpon>201511252023057_GameRequestInInvite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511252029562_JoinedTableRemoved.resx">
+      <DependentUpon>201511252029562_JoinedTableRemoved.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
