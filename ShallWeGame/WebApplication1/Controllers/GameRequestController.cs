@@ -158,7 +158,7 @@ namespace WebApplication1.Controllers
             List<GameRequestReturnModel> returnList = new List<GameRequestReturnModel>();
 
             IQueryable<Invite> requestQuery =
-                from i in _ctx.Invites.Include("GameRequest")
+                from i in _ctx.Invites.Include(a => a.gameRequest).Include(a => a.gameRequest.gameToPlay)
                 where i.reciver.id == acc.id
                 select i;
 
@@ -168,7 +168,7 @@ namespace WebApplication1.Controllers
             {
                 GameRequestReturnModel grm = new GameRequestReturnModel();
                 grm.usersInvite = invites[i];
-                grm.id = invites[i].id;
+                grm.id = invites[i].gameRequest.id;
                 grm.titel = invites[i].gameRequest.titel;
                 grm.owner = invites[i].gameRequest.owner;
                 returnList.Add(grm);
