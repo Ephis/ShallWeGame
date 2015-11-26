@@ -74,6 +74,7 @@ C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\Newtonsof
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\System.Net.Http.Formatting.xml
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\System.Web.Http.xml
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\System.Web.Http.WebHost.xml
+C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.csprojResolveAssemblyReference.cache
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.Initial.resources
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.SmallChanges.resources
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.ControllerFirstTry.resources
@@ -81,14 +82,13 @@ C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\Web
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.freinds.resources
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.test.resources
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.InvitesInGameRequestChanged.resources
-C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.csproj.GenerateResource.Cache
-C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.dll
-C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.pdb
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.InvitesInGameRequestChangede.resources
-C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.csprojResolveAssemblyReference.cache
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.joinedTableAdded.resources
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.foreignKeysAdded.resources
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.test1.resources
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.test2.resources
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.GameRequestInInvite.resources
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.JoinedTableRemoved.resources
+C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.csproj.GenerateResource.Cache
+C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.dll
+C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.pdb

@@ -74,18 +74,27 @@ namespace WebApplication1.Controllers
         public async Task<IHttpActionResult> AcceptGameRequest(IdViewModel inviteRequestId)
         {
             Account acc = GetAccount();
+
+            Invite invite =
+                _ctx.Invites.Include("GameRequest").First(i => i.id == inviteRequestId.id && i.reciver.id == acc.id);
             
-            Invite invite = _ctx.Invites.FirstOrDefault(i => i.id ==inviteRequestId.id && i.reciver == acc);
             if (invite == null)
             {
-                BadRequest("Your where not invited for that game");
+                return BadRequest("Your where not invited for that game");
             }
 
             invite.inviteStatus = RequestStatus.Accepted;
             _ctx.Invites.AddOrUpdate(invite);
+
+            IQueryable<Invite> invitesQuery =
+                from i in _ctx.Invites.Include("GameRequest")
+                where i.gameRequest.id == invite.gameRequest.id
+                select i;
+            List<Invite> invites = invitesQuery.ToList();
+
             await _ctx.SaveChangesAsync();
 
-            return Ok(invite);
+            return Ok(invites);
         }
 
         [Authorize]
@@ -94,17 +103,26 @@ namespace WebApplication1.Controllers
         {
             Account acc = GetAccount();
 
-            Invite invite = _ctx.Invites.FirstOrDefault(i => i.id == inviteRequestId.id && i.reciver == acc);
+
+            Invite invite =
+                    _ctx.Invites.Include("GameRequest").First(i => i.id == inviteRequestId.id && i.reciver.id == acc.id);
+
             if (invite == null)
             {
-                BadRequest("Your where not invited for that game");
+                return BadRequest("Your where not invited for that game");
             }
 
             invite.inviteStatus = RequestStatus.Rejected;
             _ctx.Invites.AddOrUpdate(invite);
             await _ctx.SaveChangesAsync();
 
-            return Ok(invite);
+            IQueryable<Invite> invitesQuery =
+                from i in _ctx.Invites.Include("GameRequest")
+                where i.gameRequest.id == invite.gameRequest.id
+                select i;
+            List<Invite> invites = invitesQuery.ToList();
+
+            return Ok(invites);
         }
 
         [Authorize]
