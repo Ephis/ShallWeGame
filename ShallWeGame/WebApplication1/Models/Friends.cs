@@ -7,19 +7,19 @@ using System.Web;
 
 namespace WebApplication1.Models
 {
-    public class Freinds
+    public class Friends
     {
         [Key]
         public int id { get; set; }
         public Account sender { get; set; }
         public Account reciver { get; set; }
 
-        public Freinds()
+        public Friends()
         {
             
         }
 
-        public Freinds(Account sender, Account reciver)
+        public Friends(Account sender, Account reciver)
         {
             this.sender = sender;
             this.reciver = reciver;

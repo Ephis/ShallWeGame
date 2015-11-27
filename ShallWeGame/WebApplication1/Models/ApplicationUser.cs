@@ -13,6 +13,7 @@ namespace WebApplication1.Models
     {
         public Boolean firstLogin { get; set; }
 
+
         public ApplicationUser()
         {
         }

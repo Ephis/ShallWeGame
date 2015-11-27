@@ -255,12 +255,20 @@
     <Compile Include="Migrations\201511252029562_JoinedTableRemoved.Designer.cs">
       <DependentUpon>201511252029562_JoinedTableRemoved.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511261817311_addedFieldToAccount.cs" />
+    <Compile Include="Migrations\201511261817311_addedFieldToAccount.Designer.cs">
+      <DependentUpon>201511261817311_addedFieldToAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511270100148_RandomChange.cs" />
+    <Compile Include="Migrations\201511270100148_RandomChange.Designer.cs">
+      <DependentUpon>201511270100148_RandomChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Contexts\GameContext.cs" />
     <Compile Include="Models\FriendRequest.cs" />
-    <Compile Include="Models\Freinds.cs" />
+    <Compile Include="Models\Friends.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\GameRequest.cs" />
     <Compile Include="Models\Invite.cs" />
@@ -326,6 +334,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511252029562_JoinedTableRemoved.resx">
       <DependentUpon>201511252029562_JoinedTableRemoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511261817311_addedFieldToAccount.resx">
+      <DependentUpon>201511261817311_addedFieldToAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511270100148_RandomChange.resx">
+      <DependentUpon>201511270100148_RandomChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -27,34 +27,84 @@ namespace WebApplication1.Controllers
             _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_ctx));
         }
 
+
+        //Get list of users friends by his id
+        [Authorize]
+        [Route("byUserid")]
+        public async Task<IHttpActionResult> FriendsByUserId(IdViewModel model)
+        {
+            Account acc = GetAccount();
+
+            IQueryable<Friends> friendsQuery =
+                from f in _ctx.Friends
+                where f.sender.id == model.id || f.reciver.id == model.id
+                select f;
+
+            List<Friends> friendList = friendsQuery.ToList();
+            List<Account> accountList = new List<Account>();
+
+            foreach (Friends f in friendList)
+            {
+                if (f.reciver.id != model.id)
+                {
+                    if (f.reciver.id == acc.id)
+                    {
+                        f.reciver.isUsersAccount = true;
+                    }
+                    accountList.Add(f.reciver);
+                }
+                else
+                {
+                    if (f.sender.id == acc.id)
+                    {
+                        f.sender.isUsersAccount = true;
+                    }
+                    accountList.Add(f.sender);
+                }
+            }
+            
+
+
+            return Ok(accountList);
+        }
+
+
         [Authorize]
         [Route("getfriends")]
         public async Task<IHttpActionResult> GetAllFreinds()
         {
             Account acc = GetAccount();
-            IQueryable<Freinds> freindList = 
-                from f in _ctx.Freinds
+            IQueryable<Friends> friendList = 
+                from f in _ctx.Friends
                 where f.reciver.id == acc.id || f.sender.id == acc.id
                 select f;
 
-            List<Freinds> freindsWhereIamSenderList = freindList.ToList();
+            List<Friends> freindsWhereIamSenderList = friendList.ToList();
 
             List<Account> fList = new List<Account>();
 
-            foreach (Freinds freind in freindsWhereIamSenderList)
+            foreach (Friends friend in freindsWhereIamSenderList)
             {
-                fList.Add(freind.reciver);
+                if (friend.reciver.id == acc.id)
+                {
+                    friend.reciver.isUsersAccount = true;
+                }
+                fList.Add(friend.reciver);
             }
 
-            IQueryable<Freinds> freindsWhereIamReciver =
-                from fr in freindList
+            IQueryable<Friends> friendsWhereIamReciver =
+                from fr in friendList
                 where fr.reciver.id != acc.id
                 select fr;
 
-            List<Freinds> freindsWhereIamReciverList = freindsWhereIamReciver.ToList();
-            foreach (Freinds freind in freindsWhereIamReciverList)
+            List<Friends> freindsWhereIamReciverList = friendsWhereIamReciver.ToList();
+            foreach (Friends friend in freindsWhereIamReciverList)
             {
-                fList.Add(freind.sender);
+                if (friend.sender.id == acc.id)
+                {
+                    friend.sender.isUsersAccount = true;
+                }
+                fList.Add(friend.sender);
             }
 
 
@@ -120,8 +170,8 @@ namespace WebApplication1.Controllers
             FriendRequest request = requests.First();
             request.requestStatus = RequestStatus.Accepted;
             _ctx.FreindRequests.AddOrUpdate(request);
-            Freinds freinds = new Freinds(request.sender, user);
-            _ctx.Freinds.AddOrUpdate(freinds);
+            Friends freinds = new Friends(request.sender, user);
+            _ctx.Friends.AddOrUpdate(freinds);
             _ctx.SaveChanges();
 
             return Ok();
