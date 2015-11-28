@@ -205,8 +205,16 @@ namespace WebApplication1.Controllers
             foreach (GameRequestReturnModel grm in returnList)
             {
                 List<Invite> invList = inviteList.Where(i => i.gameRequest.id == grm.id).ToList();
+                foreach (Invite i in invList)
+                {
+                    if (i.reciver.id == acc.id)
+                    {
+                        i.reciver.isUsersAccount = true;
+                    }
+                }
                 grm.invites = invList;
             }
+            returnList.Reverse();
 
             return returnList;
         } 
