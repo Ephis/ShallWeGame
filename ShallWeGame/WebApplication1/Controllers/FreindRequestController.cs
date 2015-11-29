@@ -119,8 +119,14 @@ namespace WebApplication1.Controllers
             {
                 return BadRequest(ModelState);
             }
+            Account acc = GetAccount();
+            if (acc.id == model.id)
+            {
+                return BadRequest("You cant add yourself");
+            }
+
             FriendRequest request = new FriendRequest();
-            request.sender = GetAccount();
+            request.sender = acc;
             request.reciver =(Account) _ctx.Accounts.FirstOrDefault(a => a.id == model.id);
             request.requestStatus = RequestStatus.Standby;
             _ctx.FreindRequests.AddOrUpdate(request);
