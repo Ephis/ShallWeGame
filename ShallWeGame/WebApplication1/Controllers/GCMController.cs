@@ -3,22 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using Newtonsoft.Json.Linq;
+using PushSharp.Google;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
     public class GCMController
     {
         private static String apiKey = "AIzaSyAxJqF3Wk9m8nCvLVOlllClcYpgYXCUWZA";
+        private GcmServiceBroker pushBroker;
 
-
-        [HttpPost]
-        public void SendMessage(string message, string deviceId)
+        private GCMController()
         {
-            PushBroker pushBroker = new PushBroker();
-            pushBroker.RegisterGcmService(new GcmPushChannelSettings(apiKey));
-            pushBroker.QueueNotification(new GcmNotification().ForDeviceRegistrationId(device.RegistrationId)
-                .WithJson(@"{""message"":""" + message + @"""}"));
-            pushBroker.StopAllServices();
+            pushBroker = new GcmServiceBroker(new GcmConfiguration(apiKey));
+        }
+
+        
+        public void SendMessage(FriendRequest request, string deviceId)
+        {
+            pushBroker.Start();
+            GcmNotification notification = new GcmNotification
+            {
+                Data = JObject.FromObject(request),
+                To = deviceId
+            };
+            pushBroker.QueueNotification(notification);
+            pushBroker.Stop();
 
         }
     }
