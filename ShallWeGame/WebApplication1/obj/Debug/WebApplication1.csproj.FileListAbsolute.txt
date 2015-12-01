@@ -74,7 +74,6 @@ C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\Newtonsof
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\System.Net.Http.Formatting.xml
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\System.Web.Http.xml
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\bin\System.Web.Http.WebHost.xml
-C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.csprojResolveAssemblyReference.cache
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.Initial.resources
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.SmallChanges.resources
 C:\Users\Nicolai\Documents\ShallWeGame\ShallWeGame\WebApplication1\obj\Debug\WebApplication1.Migrations.ControllerFirstTry.resources

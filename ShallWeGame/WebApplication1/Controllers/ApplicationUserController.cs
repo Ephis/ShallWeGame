@@ -89,13 +89,25 @@ namespace WebApplication1.Controllers
                     select a;
 
                 List<Account> accounts = new List<Account>();
-
+                Account acc = getCurrentUser();
                 foreach (Account account in searchQuey.ToList())
                 {
-                    accounts.Add(account);
+                    if (account.id != acc.id)
+                    {
+                        accounts.Add(account);
+                    }
                 }
 
                 return Ok(accounts);
+            }
+
+            private Account getCurrentUser()
+            {
+                var user = User.Identity.GetUserName();
+                var real =  _userManager.FindByName(user);
+                var realUser = _userManager.FindById(real.Id);
+                Account account = _ctx.Accounts.FirstOrDefault(b => b.userId == realUser.Id);
+                return account;
             }
 
 

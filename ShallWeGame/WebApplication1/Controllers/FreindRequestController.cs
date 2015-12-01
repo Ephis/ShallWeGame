@@ -75,7 +75,7 @@ namespace WebApplication1.Controllers
         {
             Account acc = GetAccount();
             IQueryable<Friends> friendList = 
-                from f in _ctx.Friends
+                from f in _ctx.Friends.Include("Sender").Include("Reciver")
                 where f.reciver.id == acc.id || f.sender.id == acc.id
                 select f;
 
@@ -85,26 +85,14 @@ namespace WebApplication1.Controllers
 
             foreach (Friends friend in freindsWhereIamSenderList)
             {
-                if (friend.reciver.id == acc.id)
+                if (friend.reciver.id != acc.id)
                 {
-                    friend.reciver.isUsersAccount = true;
+                    fList.Add(friend.reciver);
                 }
-                fList.Add(friend.reciver);
-            }
-
-            IQueryable<Friends> friendsWhereIamReciver =
-                from fr in friendList
-                where fr.reciver.id != acc.id
-                select fr;
-
-            List<Friends> freindsWhereIamReciverList = friendsWhereIamReciver.ToList();
-            foreach (Friends friend in freindsWhereIamReciverList)
-            {
-                if (friend.sender.id == acc.id)
+                if (friend.sender.id != acc.id)
                 {
-                    friend.sender.isUsersAccount = true;
+                    fList.Add(friend.sender);
                 }
-                fList.Add(friend.sender);
             }
 
 
@@ -113,13 +101,14 @@ namespace WebApplication1.Controllers
 
         [Authorize]
         [Route("request")]
-        public IHttpActionResult CreateRequest(IdViewModel model)
+        public IHttpActionResult MakeRequest(IdViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             Account acc = GetAccount();
+
             if (acc.id == model.id)
             {
                 return BadRequest("You cant add yourself");
@@ -141,13 +130,13 @@ namespace WebApplication1.Controllers
         {
             Account user = GetAccount();
             IQueryable<FriendRequest> qurey =
-                from fr in _ctx.FreindRequests
+                from fr in _ctx.FreindRequests.Include("Sender")
                 where (fr.reciver.id == user.id && 
                 fr.requestStatus != RequestStatus.Rejected &&
                 fr.requestStatus != RequestStatus.Accepted)
                 select fr;
-
-            return Ok(qurey.ToList());
+            List<FriendRequest> friendRequests = qurey.ToList();
+            return Ok(friendRequests);
         }
 
         [Authorize]
@@ -161,7 +150,7 @@ namespace WebApplication1.Controllers
             Account user = GetAccount();
 
             IQueryable<FriendRequest> query =
-                from fr in _ctx.FreindRequests
+                from fr in _ctx.FreindRequests.Include("Sender").Include("Reciver")
                 where fr.id == model.id &&
                       fr.reciver.id == user.id
                 select fr;
