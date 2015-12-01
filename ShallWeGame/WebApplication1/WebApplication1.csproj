@@ -293,6 +293,10 @@
     <Compile Include="Migrations\201511270100148_RandomChange.Designer.cs">
       <DependentUpon>201511270100148_RandomChange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512010238001_deviceIdAddedToAccount.cs" />
+    <Compile Include="Migrations\201512010238001_deviceIdAddedToAccount.Designer.cs">
+      <DependentUpon>201512010238001_deviceIdAddedToAccount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -370,6 +374,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511270100148_RandomChange.resx">
       <DependentUpon>201511270100148_RandomChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512010238001_deviceIdAddedToAccount.resx">
+      <DependentUpon>201512010238001_deviceIdAddedToAccount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

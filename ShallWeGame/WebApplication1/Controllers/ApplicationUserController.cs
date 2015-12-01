@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -67,12 +68,7 @@ namespace WebApplication1.Controllers
             [Route("CurrentUser")]
             public async Task<IHttpActionResult> GetCurrentUser()
             {
-
-                var user = User.Identity.GetUserName();
-                var real = await _userManager.FindByNameAsync(user);
-                var realUser = await _userManager.FindByIdAsync(real.Id);
-                var account = _ctx.Accounts.Where(b => b.userId == realUser.Id);
-                return Ok(account);
+                return Ok(getCurrentUser());
             }
 
             [Authorize]
@@ -100,6 +96,25 @@ namespace WebApplication1.Controllers
 
                 return Ok(accounts);
             }
+
+            [Authorize]
+            [Route("update")]
+            public IHttpActionResult updateAccount(UpdateAccountViewModel model)
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                if (model.deviceId != null)
+                {
+                    Account acc = getCurrentUser();
+                    acc.deviceId = model.deviceId;
+                    _ctx.Accounts.AddOrUpdate(acc);
+                }
+
+                return Ok();
+            }
+
 
             private Account getCurrentUser()
             {

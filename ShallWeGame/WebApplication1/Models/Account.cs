@@ -10,8 +10,9 @@ namespace WebApplication1.Models
     {
         [Key]
         public int id { get; set; }
-        public String name { get; set; }    
+        public String name { get; set; }
         public String userId { get; set; }
+        public String deviceId { get; set; }
         public Boolean isUsersAccount { get; set; }
 
         public Account()

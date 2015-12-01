@@ -11,7 +11,7 @@ namespace WebApplication1.Controllers
 {
     public class GCMController
     {
-        private static String apiKey = "AIzaSyAxJqF3Wk9m8nCvLVOlllClcYpgYXCUWZA";
+        private static String apiKey = "AIzaSyARrfdLE2VW9RYgzn3wDqN4CfdTRVkCyrs";
         private GcmServiceBroker pushBroker;
 
         private GCMController()
@@ -20,7 +20,7 @@ namespace WebApplication1.Controllers
         }
 
         
-        public void SendMessage(FriendRequest request, string deviceId)
+        public void SendFriendNewRequestMessage(FriendRequest request, string deviceId)
         {
             pushBroker.Start();
             GcmNotification notification = new GcmNotification
