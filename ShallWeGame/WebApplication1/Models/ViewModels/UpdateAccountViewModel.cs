@@ -8,6 +8,8 @@ namespace WebApplication1.Models.ViewModels
 {
     public class UpdateAccountViewModel
     {
+        public String id { get; set; }
+        public String name { get; set; }
         public String deviceId { get; set; }
     }
 }

@@ -66,9 +66,10 @@ namespace WebApplication1.Controllers
 
             [Authorize]
             [Route("CurrentUser")]
-            public async Task<IHttpActionResult> GetCurrentUser()
+            public IHttpActionResult GetCurrentUser()
             {
-                return Ok(getCurrentUser());
+                Account acc = getCurrentUser();
+                return Ok(acc);
             }
 
             [Authorize]
@@ -105,24 +106,27 @@ namespace WebApplication1.Controllers
                 {
                     return BadRequest(ModelState);
                 }
+
+                Account acc = getCurrentUser();
+
                 if (model.deviceId != null)
                 {
-                    Account acc = getCurrentUser();
                     acc.deviceId = model.deviceId;
                     _ctx.Accounts.AddOrUpdate(acc);
+                    _ctx.SaveChanges();
+                    return Ok(acc);
                 }
 
-                return Ok();
+                return BadRequest();
             }
 
-
+            [Authorize]
             private Account getCurrentUser()
             {
                 var user = User.Identity.GetUserName();
-                var real =  _userManager.FindByName(user);
-                var realUser = _userManager.FindById(real.Id);
-                Account account = _ctx.Accounts.FirstOrDefault(b => b.userId == realUser.Id);
-                return account;
+                ApplicationUser real = (ApplicationUser)_userManager.FindByNameAsync(user).Result;
+                Account acc = _ctx.Accounts.FirstOrDefault(a => a.userId == real.Id);
+                return acc;
             }
 
 
